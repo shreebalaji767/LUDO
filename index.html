@@ -1,0 +1,3697 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="theme-color" content="#080b12">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<title>VOID LUDO</title>
+
+<style>
+/* =========================================================
+   VOID LUDO
+   SINGLE FILE VERSION
+   HTML + CSS + JAVASCRIPT
+   ========================================================= */
+
+:root{
+    --bg:#06080d;
+    --panel:#0d111a;
+    --panel2:#121824;
+    --border:#252e3d;
+    --text:#f5f7fb;
+    --muted:#8e99aa;
+    --accent:#7c5cff;
+    --accent2:#a78bfa;
+    --danger:#ff4d67;
+    --success:#39e58c;
+
+    --red:#ff4057;
+    --yellow:#ffd43b;
+    --green:#20d889;
+    --blue:#3d8bff;
+    --purple:#a855f7;
+    --orange:#ff8a30;
+    --pink:#ff4fa3;
+    --cyan:#19d7e8;
+    --lime:#9bea3d;
+    --violet:#7568ff;
+}
+
+*{
+    box-sizing:border-box;
+    -webkit-tap-highlight-color:transparent;
+}
+
+html,
+body{
+    width:100%;
+    min-height:100%;
+    margin:0;
+}
+
+body{
+    background:
+        radial-gradient(circle at 50% -10%,rgba(124,92,255,.18),transparent 38%),
+        radial-gradient(circle at 100% 100%,rgba(25,215,232,.06),transparent 30%),
+        var(--bg);
+    color:var(--text);
+    font-family:
+        Inter,
+        system-ui,
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        sans-serif;
+    overflow-x:hidden;
+    user-select:none;
+    -webkit-user-select:none;
+}
+
+button{
+    font:inherit;
+}
+
+.hidden{
+    display:none!important;
+}
+
+/* =========================================================
+   APP
+   ========================================================= */
+
+#app{
+    min-height:100vh;
+    min-height:100dvh;
+    display:flex;
+    flex-direction:column;
+}
+
+/* =========================================================
+   HEADER
+   ========================================================= */
+
+.header{
+    height:64px;
+    flex:0 0 64px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:0 22px;
+    border-bottom:1px solid rgba(255,255,255,.07);
+    background:rgba(6,8,13,.82);
+    backdrop-filter:blur(18px);
+    -webkit-backdrop-filter:blur(18px);
+    position:relative;
+    z-index:20;
+}
+
+.logo{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    font-weight:900;
+    letter-spacing:2px;
+    font-size:20px;
+}
+
+.logo-mark{
+    width:30px;
+    height:30px;
+    border-radius:9px;
+    display:grid;
+    place-items:center;
+    background:linear-gradient(135deg,#7c5cff,#19d7e8);
+    box-shadow:0 0 24px rgba(124,92,255,.35);
+    color:white;
+    font-size:14px;
+}
+
+.header-right{
+    display:flex;
+    align-items:center;
+    gap:8px;
+}
+
+.header-btn{
+    width:40px;
+    height:40px;
+    border-radius:12px;
+    border:1px solid var(--border);
+    background:#10151f;
+    color:#dfe5ef;
+    cursor:pointer;
+    transition:.2s;
+}
+
+.header-btn:hover{
+    border-color:#4a566b;
+    transform:translateY(-1px);
+}
+
+.header-btn:active{
+    transform:scale(.94);
+}
+
+/* =========================================================
+   SCREENS
+   ========================================================= */
+
+.screen{
+    flex:1;
+    min-height:0;
+    display:none;
+}
+
+.screen.active{
+    display:flex;
+}
+
+/* =========================================================
+   MENU
+   ========================================================= */
+
+#menuScreen{
+    align-items:center;
+    justify-content:center;
+    padding:35px 18px;
+}
+
+.menu-wrap{
+    width:min(620px,100%);
+    text-align:center;
+}
+
+.brand-title{
+    font-size:clamp(52px,12vw,110px);
+    line-height:.9;
+    font-weight:1000;
+    letter-spacing:-5px;
+    margin:0;
+    background:linear-gradient(
+        120deg,
+        #fff 0%,
+        #a78bfa 35%,
+        #19d7e8 70%,
+        #fff 100%
+    );
+    -webkit-background-clip:text;
+    background-clip:text;
+    color:transparent;
+    filter:drop-shadow(0 0 30px rgba(124,92,255,.18));
+}
+
+.brand-subtitle{
+    color:var(--muted);
+    letter-spacing:5px;
+    font-size:12px;
+    margin:18px 0 42px;
+}
+
+.menu-buttons{
+    display:grid;
+    gap:12px;
+}
+
+.menu-btn{
+    min-height:58px;
+    border-radius:17px;
+    border:1px solid var(--border);
+    background:linear-gradient(180deg,#151b27,#0e131d);
+    color:#fff;
+    cursor:pointer;
+    font-size:15px;
+    font-weight:800;
+    letter-spacing:.8px;
+    transition:.2s;
+    box-shadow:0 10px 30px rgba(0,0,0,.18);
+}
+
+.menu-btn:hover{
+    transform:translateY(-2px);
+    border-color:#4b5870;
+}
+
+.menu-btn:active{
+    transform:scale(.98);
+}
+
+.menu-btn.primary{
+    background:linear-gradient(135deg,#7657ff,#5440d8);
+    border-color:#8f7aff;
+    box-shadow:0 12px 35px rgba(92,69,235,.3);
+}
+
+.version{
+    color:#555f70;
+    font-size:11px;
+    margin-top:30px;
+}
+
+/* =========================================================
+   SETUP
+   ========================================================= */
+
+#setupScreen{
+    align-items:center;
+    justify-content:center;
+    padding:24px 15px;
+    overflow:auto;
+}
+
+.setup{
+    width:min(760px,100%);
+    background:rgba(13,17,26,.94);
+    border:1px solid var(--border);
+    border-radius:25px;
+    padding:25px;
+    box-shadow:0 30px 80px rgba(0,0,0,.35);
+}
+
+.setup-title{
+    font-size:28px;
+    font-weight:900;
+    margin:0 0 6px;
+}
+
+.setup-sub{
+    color:var(--muted);
+    font-size:13px;
+    margin-bottom:24px;
+}
+
+.setting-row{
+    padding:18px 0;
+    border-top:1px solid rgba(255,255,255,.06);
+}
+
+.setting-label{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-bottom:12px;
+    font-weight:800;
+}
+
+.setting-label span:last-child{
+    color:var(--accent2);
+}
+
+.player-count{
+    display:grid;
+    grid-template-columns:repeat(9,1fr);
+    gap:7px;
+}
+
+.count-btn{
+    height:43px;
+    border-radius:11px;
+    border:1px solid var(--border);
+    background:#10151f;
+    color:#bbc4d2;
+    cursor:pointer;
+    font-weight:800;
+}
+
+.count-btn.active{
+    background:#6c53e9;
+    color:white;
+    border-color:#947fff;
+}
+
+.player-list{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:9px;
+    max-height:360px;
+    overflow:auto;
+    padding-right:2px;
+}
+
+.player-config{
+    display:grid;
+    grid-template-columns:40px 1fr 125px;
+    gap:9px;
+    align-items:center;
+    background:#10151f;
+    border:1px solid var(--border);
+    border-radius:14px;
+    padding:9px;
+}
+
+.color-dot{
+    width:32px;
+    height:32px;
+    border-radius:50%;
+    margin:auto;
+}
+
+.player-name-input,
+.type-select{
+    width:100%;
+    height:40px;
+    border:1px solid #2a3444;
+    background:#0b1018;
+    color:white;
+    border-radius:9px;
+    padding:0 10px;
+    outline:none;
+}
+
+.player-name-input:focus,
+.type-select:focus{
+    border-color:#6f5be7;
+}
+
+.setup-actions{
+    display:flex;
+    gap:10px;
+    margin-top:22px;
+}
+
+.action-btn{
+    flex:1;
+    height:52px;
+    border-radius:14px;
+    border:1px solid var(--border);
+    background:#151b26;
+    color:white;
+    cursor:pointer;
+    font-weight:800;
+}
+
+.action-btn.primary{
+    background:linear-gradient(135deg,#7657ff,#5440d8);
+    border-color:#8d79ff;
+}
+
+/* =========================================================
+   GAME SCREEN
+   ========================================================= */
+
+#gameScreen{
+    padding:15px;
+    overflow:auto;
+}
+
+.game-shell{
+    width:min(1450px,100%);
+    margin:auto;
+    display:grid;
+    grid-template-columns:minmax(0,1fr) 310px;
+    gap:15px;
+    min-height:0;
+}
+
+.board-card{
+    min-width:0;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    background:
+        radial-gradient(circle at center,rgba(124,92,255,.04),transparent 55%),
+        #090d14;
+    border:1px solid var(--border);
+    border-radius:22px;
+    padding:clamp(8px,2vw,20px);
+    min-height:calc(100vh - 94px);
+    min-height:calc(100dvh - 94px);
+}
+
+.board-holder{
+    width:min(92vh,100%);
+    width:min(92dvh,100%);
+    aspect-ratio:1;
+    position:relative;
+    max-width:900px;
+    max-height:900px;
+}
+
+/* SVG BOARD */
+
+#ludoBoard{
+    width:100%;
+    height:100%;
+    display:block;
+    overflow:visible;
+    touch-action:none;
+}
+
+.board-bg{
+    fill:#0b1018;
+    stroke:#293346;
+    stroke-width:1.5;
+}
+
+.track-cell{
+    fill:#151c27;
+    stroke:#2d3748;
+    stroke-width:.7;
+}
+
+.home-area{
+    stroke:#2c3646;
+    stroke-width:1;
+}
+
+.home-red{fill:rgba(255,64,87,.14);}
+.home-yellow{fill:rgba(255,212,59,.13);}
+.home-green{fill:rgba(32,216,137,.13);}
+.home-blue{fill:rgba(61,139,255,.13);}
+.home-extra{fill:rgba(168,85,247,.10);}
+
+.home-lane{
+    opacity:.95;
+}
+
+.center-home{
+    fill:#0d131d;
+    stroke:#343e50;
+    stroke-width:1.4;
+}
+
+.center-triangle{
+    stroke:#080b10;
+    stroke-width:.7;
+}
+
+.safe-star{
+    fill:#fff;
+    opacity:.8;
+}
+
+.start-mark{
+    stroke:#fff;
+    stroke-width:1.4;
+    opacity:.7;
+}
+
+.token{
+    cursor:pointer;
+    transition:
+        cx .18s ease,
+        cy .18s ease,
+        transform .18s ease;
+    filter:drop-shadow(0 2px 2px rgba(0,0,0,.55));
+}
+
+.token:hover{
+    filter:drop-shadow(0 0 6px rgba(255,255,255,.7));
+}
+
+.token.selected{
+    stroke:#fff;
+    stroke-width:3;
+    filter:
+        drop-shadow(0 0 7px rgba(255,255,255,.9))
+        drop-shadow(0 2px 2px rgba(0,0,0,.6));
+}
+
+.token-number{
+    fill:#fff;
+    font-size:6px;
+    font-weight:900;
+    text-anchor:middle;
+    dominant-baseline:middle;
+    pointer-events:none;
+}
+
+.token-ring{
+    fill:none;
+    stroke:rgba(255,255,255,.5);
+    stroke-width:1;
+    pointer-events:none;
+}
+
+/* =========================================================
+   SIDE PANEL
+   ========================================================= */
+
+.side-panel{
+    display:flex;
+    flex-direction:column;
+    gap:12px;
+    min-width:0;
+}
+
+.panel{
+    background:rgba(13,17,26,.96);
+    border:1px solid var(--border);
+    border-radius:18px;
+    padding:15px;
+}
+
+.turn-panel{
+    display:flex;
+    align-items:center;
+    gap:12px;
+}
+
+.turn-color{
+    width:43px;
+    height:43px;
+    border-radius:14px;
+    flex:0 0 auto;
+}
+
+.turn-title{
+    color:var(--muted);
+    font-size:11px;
+    text-transform:uppercase;
+    letter-spacing:1px;
+}
+
+.turn-name{
+    font-size:18px;
+    font-weight:900;
+    margin-top:2px;
+}
+
+.dice-panel{
+    text-align:center;
+}
+
+.dice{
+    width:82px;
+    height:82px;
+    margin:8px auto 13px;
+    border-radius:18px;
+    display:grid;
+    place-items:center;
+    font-size:38px;
+    font-weight:1000;
+    background:
+        linear-gradient(145deg,#fff,#d8dce4);
+    color:#111;
+    box-shadow:
+        0 12px 30px rgba(0,0,0,.35),
+        inset 0 1px 1px rgba(255,255,255,.9);
+}
+
+.dice.rolling{
+    animation:diceRoll .55s linear infinite;
+}
+
+@keyframes diceRoll{
+    0%{transform:rotate(0deg) scale(1);}
+    25%{transform:rotate(90deg) scale(1.04);}
+    50%{transform:rotate(180deg) scale(1);}
+    75%{transform:rotate(270deg) scale(1.04);}
+    100%{transform:rotate(360deg) scale(1);}
+}
+
+.roll-btn{
+    width:100%;
+    height:48px;
+    border-radius:13px;
+    border:1px solid #8e7cff;
+    background:linear-gradient(135deg,#7657ff,#5741dc);
+    color:white;
+    font-weight:900;
+    cursor:pointer;
+    box-shadow:0 9px 25px rgba(88,65,220,.25);
+}
+
+.roll-btn:disabled{
+    opacity:.35;
+    cursor:not-allowed;
+}
+
+.game-status{
+    color:#aeb7c7;
+    font-size:12px;
+    line-height:1.5;
+    min-height:37px;
+}
+
+.players-panel{
+    flex:1;
+    min-height:0;
+    display:flex;
+    flex-direction:column;
+}
+
+.players-list{
+    display:flex;
+    flex-direction:column;
+    gap:7px;
+    overflow:auto;
+    max-height:430px;
+}
+
+.player-row{
+    display:grid;
+    grid-template-columns:31px 1fr auto;
+    gap:9px;
+    align-items:center;
+    padding:8px;
+    border-radius:11px;
+    border:1px solid transparent;
+    background:#10151e;
+}
+
+.player-row.active{
+    border-color:#6c5be2;
+    background:#17152a;
+}
+
+.mini-color{
+    width:25px;
+    height:25px;
+    border-radius:50%;
+}
+
+.player-row-name{
+    font-size:12px;
+    font-weight:800;
+}
+
+.player-row-type{
+    font-size:9px;
+    color:#788397;
+    margin-top:2px;
+}
+
+.player-score{
+    color:#b7c1d1;
+    font-size:11px;
+    font-weight:800;
+}
+
+.game-actions{
+    display:grid;
+    grid-template-columns:1fr 1fr 1fr;
+    gap:7px;
+}
+
+.small-btn{
+    height:42px;
+    border:1px solid var(--border);
+    border-radius:11px;
+    background:#121823;
+    color:#dce2eb;
+    cursor:pointer;
+    font-weight:800;
+    font-size:11px;
+}
+
+.small-btn:hover{
+    border-color:#536075;
+}
+
+/* =========================================================
+   OVERLAY / MODALS
+   ========================================================= */
+
+.overlay{
+    position:fixed;
+    inset:0;
+    z-index:100;
+    display:none;
+    align-items:center;
+    justify-content:center;
+    padding:18px;
+    background:rgba(2,4,8,.72);
+    backdrop-filter:blur(13px);
+    -webkit-backdrop-filter:blur(13px);
+}
+
+.overlay.show{
+    display:flex;
+}
+
+.modal{
+    width:min(510px,100%);
+    max-height:min(90vh,800px);
+    overflow:auto;
+    background:#0d121b;
+    border:1px solid #2a3546;
+    border-radius:23px;
+    padding:25px;
+    box-shadow:0 35px 100px rgba(0,0,0,.55);
+}
+
+.modal h2{
+    margin:0 0 10px;
+    font-size:25px;
+}
+
+.modal p{
+    color:#9da7b7;
+    line-height:1.6;
+    font-size:13px;
+}
+
+.modal-buttons{
+    display:flex;
+    gap:9px;
+    margin-top:20px;
+}
+
+.modal-btn{
+    flex:1;
+    min-height:48px;
+    border-radius:12px;
+    border:1px solid var(--border);
+    background:#161c27;
+    color:white;
+    cursor:pointer;
+    font-weight:800;
+}
+
+.modal-btn.primary{
+    background:#6650df;
+    border-color:#8b79ff;
+}
+
+.rules{
+    display:grid;
+    gap:10px;
+    margin-top:17px;
+}
+
+.rule{
+    display:flex;
+    gap:10px;
+    color:#abb4c3;
+    font-size:12px;
+    line-height:1.5;
+}
+
+.rule-num{
+    width:25px;
+    height:25px;
+    flex:0 0 25px;
+    border-radius:8px;
+    display:grid;
+    place-items:center;
+    background:#19152f;
+    color:#a899ff;
+    font-weight:900;
+}
+
+/* =========================================================
+   SETTINGS
+   ========================================================= */
+
+.setting-option{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:13px 0;
+    border-bottom:1px solid rgba(255,255,255,.06);
+    color:#dce2eb;
+    font-size:13px;
+}
+
+.switch{
+    position:relative;
+    width:48px;
+    height:26px;
+}
+
+.switch input{
+    opacity:0;
+    width:0;
+    height:0;
+}
+
+.slider{
+    position:absolute;
+    inset:0;
+    background:#202938;
+    border-radius:30px;
+    cursor:pointer;
+    transition:.2s;
+}
+
+.slider:before{
+    content:"";
+    position:absolute;
+    width:20px;
+    height:20px;
+    left:3px;
+    top:3px;
+    background:white;
+    border-radius:50%;
+    transition:.2s;
+}
+
+.switch input:checked + .slider{
+    background:#6650df;
+}
+
+.switch input:checked + .slider:before{
+    transform:translateX(22px);
+}
+
+/* =========================================================
+   TOAST
+   ========================================================= */
+
+#toast{
+    position:fixed;
+    left:50%;
+    bottom:25px;
+    transform:translate(-50%,20px);
+    z-index:300;
+    padding:11px 16px;
+    border-radius:12px;
+    background:#151c27;
+    border:1px solid #354155;
+    color:#e9edf5;
+    font-size:12px;
+    opacity:0;
+    pointer-events:none;
+    transition:.25s;
+    box-shadow:0 15px 40px rgba(0,0,0,.35);
+}
+
+#toast.show{
+    opacity:1;
+    transform:translate(-50%,0);
+}
+
+/* =========================================================
+   CONFETTI
+   ========================================================= */
+
+.confetti{
+    position:fixed;
+    width:8px;
+    height:14px;
+    top:-20px;
+    z-index:250;
+    animation:confettiFall linear forwards;
+}
+
+@keyframes confettiFall{
+    to{
+        transform:translate3d(var(--x),110vh,0) rotate(720deg);
+    }
+}
+
+/* =========================================================
+   RESPONSIVE
+   ========================================================= */
+
+@media(max-width:1000px){
+
+    #gameScreen{
+        padding:10px;
+    }
+
+    .game-shell{
+        grid-template-columns:1fr;
+    }
+
+    .board-card{
+        min-height:auto;
+    }
+
+    .board-holder{
+        width:min(88vw,700px);
+        width:min(88dvw,700px);
+    }
+
+    .side-panel{
+        display:grid;
+        grid-template-columns:1fr 1fr;
+    }
+
+    .players-panel{
+        grid-column:1/-1;
+    }
+
+    .game-actions{
+        grid-column:1/-1;
+    }
+}
+
+@media(max-width:650px){
+
+    .header{
+        height:54px;
+        flex-basis:54px;
+        padding:0 12px;
+    }
+
+    .logo{
+        font-size:15px;
+    }
+
+    .logo-mark{
+        width:27px;
+        height:27px;
+    }
+
+    .header-btn{
+        width:35px;
+        height:35px;
+        border-radius:10px;
+    }
+
+    #gameScreen{
+        padding:6px;
+    }
+
+    .board-card{
+        padding:4px;
+        border-radius:16px;
+    }
+
+    .board-holder{
+        width:min(98vw,98dvw);
+    }
+
+    .side-panel{
+        display:flex;
+    }
+
+    .panel{
+        border-radius:15px;
+        padding:12px;
+    }
+
+    .turn-panel{
+        padding:11px;
+    }
+
+    .dice{
+        width:67px;
+        height:67px;
+        font-size:30px;
+        margin:4px auto 9px;
+    }
+
+    .roll-btn{
+        height:45px;
+    }
+
+    .players-list{
+        max-height:250px;
+    }
+
+    .player-row{
+        padding:6px;
+    }
+
+    .setup{
+        padding:17px;
+        border-radius:19px;
+    }
+
+    .player-list{
+        grid-template-columns:1fr;
+    }
+
+    .player-count{
+        grid-template-columns:repeat(5,1fr);
+    }
+
+    .setup-actions{
+        position:sticky;
+        bottom:0;
+    }
+}
+
+@media(max-width:420px){
+
+    .brand-title{
+        font-size:52px;
+        letter-spacing:-3px;
+    }
+
+    .brand-subtitle{
+        font-size:9px;
+        letter-spacing:3px;
+    }
+
+    .modal{
+        padding:18px;
+    }
+}
+
+@media(max-height:620px) and (orientation:landscape){
+
+    .header{
+        height:48px;
+        flex-basis:48px;
+    }
+
+    #gameScreen{
+        padding:5px;
+    }
+
+    .game-shell{
+        grid-template-columns:minmax(0,1fr) 250px;
+        height:calc(100vh - 58px);
+        height:calc(100dvh - 58px);
+    }
+
+    .board-card{
+        min-height:0;
+    }
+
+    .board-holder{
+        height:calc(100vh - 70px);
+        height:calc(100dvh - 70px);
+        width:auto;
+    }
+
+    .side-panel{
+        display:flex;
+        overflow:auto;
+    }
+
+    .players-list{
+        max-height:none;
+    }
+}
+
+/* Prevent accidental page scrolling during game interaction */
+.game-active{
+    overscroll-behavior:none;
+}
+</style>
+</head>
+
+<body>
+
+<div id="app">
+
+    <!-- =====================================================
+         HEADER
+         ===================================================== -->
+
+    <header class="header">
+        <div class="logo">
+            <div class="logo-mark">V</div>
+            <span>VOID LUDO</span>
+        </div>
+
+        <div class="header-right">
+            <button class="header-btn" id="headerPause" title="Pause">Ⅱ</button>
+            <button class="header-btn" id="headerSettings" title="Settings">⚙</button>
+        </div>
+    </header>
+
+    <!-- =====================================================
+         MAIN MENU
+         ===================================================== -->
+
+    <section id="menuScreen" class="screen active">
+
+        <div class="menu-wrap">
+
+            <h1 class="brand-title">LUDO</h1>
+
+            <div class="brand-subtitle">
+                2–10 PLAYERS • LOCAL • COMPUTER
+            </div>
+
+            <div class="menu-buttons">
+
+                <button class="menu-btn primary" id="playBtn">
+                    PLAY
+                </button>
+
+                <button class="menu-btn" id="howBtn">
+                    HOW TO PLAY
+                </button>
+
+                <button class="menu-btn" id="settingsBtn">
+                    SETTINGS
+                </button>
+
+            </div>
+
+            <div class="version">
+                VOID LUDO • v1.0
+            </div>
+
+        </div>
+
+    </section>
+
+    <!-- =====================================================
+         SETUP SCREEN
+         ===================================================== -->
+
+    <section id="setupScreen" class="screen">
+
+        <div class="setup">
+
+            <h2 class="setup-title">GAME SETUP</h2>
+
+            <div class="setup-sub">
+                Choose players and decide who is controlled by the computer.
+            </div>
+
+            <div class="setting-row">
+
+                <div class="setting-label">
+                    <span>NUMBER OF PLAYERS</span>
+                    <span id="playerCountLabel">4</span>
+                </div>
+
+                <div class="player-count" id="playerCountButtons">
+                    <button class="count-btn" data-count="2">2</button>
+                    <button class="count-btn" data-count="3">3</button>
+                    <button class="count-btn active" data-count="4">4</button>
+                    <button class="count-btn" data-count="5">5</button>
+                    <button class="count-btn" data-count="6">6</button>
+                    <button class="count-btn" data-count="7">7</button>
+                    <button class="count-btn" data-count="8">8</button>
+                    <button class="count-btn" data-count="9">9</button>
+                    <button class="count-btn" data-count="10">10</button>
+                </div>
+
+            </div>
+
+            <div class="setting-row">
+
+                <div class="setting-label">
+                    <span>PLAYERS</span>
+                    <span>HUMAN / COMPUTER</span>
+                </div>
+
+                <div class="player-list" id="playerConfigList"></div>
+
+            </div>
+
+            <div class="setup-actions">
+
+                <button class="action-btn" id="setupBack">
+                    BACK
+                </button>
+
+                <button class="action-btn primary" id="startGameBtn">
+                    START GAME
+                </button>
+
+            </div>
+
+        </div>
+
+    </section>
+
+    <!-- =====================================================
+         GAME SCREEN
+         ===================================================== -->
+
+    <section id="gameScreen" class="screen">
+
+        <div class="game-shell">
+
+            <div class="board-card">
+
+                <div class="board-holder">
+
+                    <svg
+                        id="ludoBoard"
+                        viewBox="0 0 150 150"
+                        xmlns="http://www.w3.org/2000/svg"
+                        aria-label="Ludo board">
+
+                        <rect
+                            class="board-bg"
+                            x="1"
+                            y="1"
+                            width="148"
+                            height="148"
+                            rx="6"/>
+
+                        <g id="boardGraphics"></g>
+
+                        <g id="tokenLayer"></g>
+
+                    </svg>
+
+                </div>
+
+            </div>
+
+            <aside class="side-panel">
+
+                <div class="panel turn-panel">
+
+                    <div id="turnColor" class="turn-color"></div>
+
+                    <div>
+                        <div class="turn-title">CURRENT TURN</div>
+                        <div id="turnName" class="turn-name">Player 1</div>
+                    </div>
+
+                </div>
+
+                <div class="panel dice-panel">
+
+                    <div class="turn-title">DICE</div>
+
+                    <div id="dice" class="dice">—</div>
+
+                    <button id="rollBtn" class="roll-btn">
+                        ROLL DICE
+                    </button>
+
+                </div>
+
+                <div class="panel">
+
+                    <div class="turn-title">STATUS</div>
+
+                    <div id="gameStatus" class="game-status">
+                        Roll the dice to begin.
+                    </div>
+
+                </div>
+
+                <div class="panel players-panel">
+
+                    <div class="turn-title" style="margin-bottom:9px;">
+                        PLAYERS
+                    </div>
+
+                    <div id="playersList" class="players-list"></div>
+
+                </div>
+
+                <div class="game-actions">
+
+                    <button class="small-btn" id="pauseBtn">
+                        PAUSE
+                    </button>
+
+                    <button class="small-btn" id="restartBtn">
+                        RESTART
+                    </button>
+
+                    <button class="small-btn" id="exitBtn">
+                        EXIT
+                    </button>
+
+                </div>
+
+            </aside>
+
+        </div>
+
+    </section>
+
+</div>
+
+<!-- =========================================================
+     OVERLAY
+     ========================================================= -->
+
+<div id="overlay" class="overlay">
+
+    <div id="pauseModal" class="modal hidden">
+
+        <h2>GAME PAUSED</h2>
+
+        <p>
+            The game is paused. Resume when you are ready.
+        </p>
+
+        <div class="modal-buttons">
+
+            <button class="modal-btn primary" id="resumeBtn">
+                RESUME
+            </button>
+
+            <button class="modal-btn" id="pauseRestartBtn">
+                RESTART
+            </button>
+
+            <button class="modal-btn" id="pauseExitBtn">
+                EXIT
+            </button>
+
+        </div>
+
+    </div>
+
+    <div id="howModal" class="modal hidden">
+
+        <h2>HOW TO PLAY</h2>
+
+        <p>
+            VOID LUDO supports 2–10 local players. Any player can be
+            controlled by a human or the computer.
+        </p>
+
+        <div class="rules">
+
+            <div class="rule">
+                <div class="rule-num">1</div>
+                <div>Roll the dice. A token normally enters the track when you roll a 6.</div>
+            </div>
+
+            <div class="rule">
+                <div class="rule-num">2</div>
+                <div>Choose a highlighted token after a roll.</div>
+            </div>
+
+            <div class="rule">
+                <div class="rule-num">3</div>
+                <div>Move the token clockwise around the board.</div>
+            </div>
+
+            <div class="rule">
+                <div class="rule-num">4</div>
+                <div>Landing on an opponent can send that token back to its yard.</div>
+            </div>
+
+            <div class="rule">
+                <div class="rule-num">5</div>
+                <div>Safe cells cannot be used for captures.</div>
+            </div>
+
+            <div class="rule">
+                <div class="rule-num">6</div>
+                <div>Reach the center home path to complete your token.</div>
+            </div>
+
+            <div class="rule">
+                <div class="rule-num">7</div>
+                <div>Complete all four tokens to win.</div>
+            </div>
+
+        </div>
+
+        <div class="modal-buttons">
+
+            <button class="modal-btn primary" id="closeHowBtn">
+                CLOSE
+            </button>
+
+        </div>
+
+    </div>
+
+    <div id="settingsModal" class="modal hidden">
+
+        <h2>SETTINGS</h2>
+
+        <div class="setting-option">
+
+            <span>Animations</span>
+
+            <label class="switch">
+                <input id="animationToggle" type="checkbox" checked>
+                <span class="slider"></span>
+            </label>
+
+        </div>
+
+        <div class="setting-option">
+
+            <span>Computer thinking delay</span>
+
+            <select id="aiSpeed"
+                    style="background:#111722;color:white;border:1px solid #303b4d;border-radius:8px;padding:7px;">
+                <option value="350">Fast</option>
+                <option value="700" selected>Normal</option>
+                <option value="1100">Slow</option>
+            </select>
+
+        </div>
+
+        <div class="setting-option">
+
+            <span>Sound</span>
+
+            <label class="switch">
+                <input id="soundToggle" type="checkbox">
+                <span class="slider"></span>
+            </label>
+
+        </div>
+
+        <div class="modal-buttons">
+
+            <button class="modal-btn primary" id="closeSettingsBtn">
+                CLOSE
+            </button>
+
+        </div>
+
+    </div>
+
+    <div id="gameOverModal" class="modal hidden">
+
+        <h2 id="winnerTitle">WINNER!</h2>
+
+        <p id="winnerText"></p>
+
+        <div class="modal-buttons">
+
+            <button class="modal-btn primary" id="newGameBtn">
+                NEW GAME
+            </button>
+
+            <button class="modal-btn" id="winnerExitBtn">
+                MAIN MENU
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
+
+<div id="toast"></div>
+
+<script>
+/* =========================================================
+   VOID LUDO
+   GAME ENGINE
+   ========================================================= */
+
+(() => {
+
+"use strict";
+
+/* =========================================================
+   CONSTANTS
+   ========================================================= */
+
+const COLORS = [
+    "#ff4057",
+    "#ffd43b",
+    "#20d889",
+    "#3d8bff",
+    "#a855f7",
+    "#ff8a30",
+    "#ff4fa3",
+    "#19d7e8",
+    "#9bea3d",
+    "#7568ff"
+];
+
+const COLOR_NAMES = [
+    "Red",
+    "Yellow",
+    "Green",
+    "Blue",
+    "Purple",
+    "Orange",
+    "Pink",
+    "Cyan",
+    "Lime",
+    "Violet"
+];
+
+/*
+    Start positions for the 10 players.
+
+    These are distributed around the 52-cell track.
+*/
+const STARTS = [
+    0,
+    6,
+    13,
+    19,
+    26,
+    32,
+    39,
+    45,
+    9,
+    29
+];
+
+/*
+    Safe positions.
+*/
+const SAFE_CELLS = new Set([
+    0,
+    8,
+    13,
+    21,
+    26,
+    34,
+    39,
+    47
+]);
+
+const TRACK_COUNT = 52;
+const HOME_LENGTH = 6;
+
+/*
+    Token state:
+    -1 = yard
+     0..51 = track
+    52..57 = home lane
+    57 = completed
+*/
+const FINISH_POSITION = 57;
+
+/* =========================================================
+   DOM
+   ========================================================= */
+
+const $ = id => document.getElementById(id);
+
+const menuScreen = $("menuScreen");
+const setupScreen = $("setupScreen");
+const gameScreen = $("gameScreen");
+
+const playBtn = $("playBtn");
+const howBtn = $("howBtn");
+const settingsBtn = $("settingsBtn");
+
+const setupBack = $("setupBack");
+const startGameBtn = $("startGameBtn");
+
+const playerCountButtons = $("playerCountButtons");
+const playerCountLabel = $("playerCountLabel");
+const playerConfigList = $("playerConfigList");
+
+const boardGraphics = $("boardGraphics");
+const tokenLayer = $("tokenLayer");
+
+const rollBtn = $("rollBtn");
+const diceEl = $("dice");
+
+const turnColor = $("turnColor");
+const turnName = $("turnName");
+
+const playersList = $("playersList");
+const gameStatus = $("gameStatus");
+
+const pauseBtn = $("pauseBtn");
+const restartBtn = $("restartBtn");
+const exitBtn = $("exitBtn");
+
+const headerPause = $("headerPause");
+const headerSettings = $("headerSettings");
+
+const overlay = $("overlay");
+
+const pauseModal = $("pauseModal");
+const howModal = $("howModal");
+const settingsModal = $("settingsModal");
+const gameOverModal = $("gameOverModal");
+
+const resumeBtn = $("resumeBtn");
+const pauseRestartBtn = $("pauseRestartBtn");
+const pauseExitBtn = $("pauseExitBtn");
+
+const closeHowBtn = $("closeHowBtn");
+const closeSettingsBtn = $("closeSettingsBtn");
+
+const animationToggle = $("animationToggle");
+const soundToggle = $("soundToggle");
+const aiSpeed = $("aiSpeed");
+
+const winnerTitle = $("winnerTitle");
+const winnerText = $("winnerText");
+
+const newGameBtn = $("newGameBtn");
+const winnerExitBtn = $("winnerExitBtn");
+
+const toast = $("toast");
+
+/* =========================================================
+   GAME STATE
+   ========================================================= */
+
+let playerCount = 4;
+
+let players = [];
+
+let currentPlayer = 0;
+
+let diceValue = 0;
+
+let diceRolled = false;
+
+let movableTokens = [];
+
+let gameRunning = false;
+
+let gamePaused = false;
+
+let gameOver = false;
+
+let selectedToken = -1;
+
+let aiTimer = null;
+
+let toastTimer = null;
+
+let soundEnabled = false;
+
+let animationsEnabled = true;
+
+/* =========================================================
+   SETUP
+   ========================================================= */
+
+const defaultNames = [
+    "Player 1",
+    "Player 2",
+    "Player 3",
+    "Player 4",
+    "Player 5",
+    "Player 6",
+    "Player 7",
+    "Player 8",
+    "Player 9",
+    "Player 10"
+];
+
+let setupTypes = [
+    "human",
+    "human",
+    "computer",
+    "computer",
+    "computer",
+    "computer",
+    "computer",
+    "computer",
+    "computer",
+    "computer"
+];
+
+function showScreen(screen){
+
+    menuScreen.classList.remove("active");
+    setupScreen.classList.remove("active");
+    gameScreen.classList.remove("active");
+
+    screen.classList.add("active");
+
+}
+
+function buildSetup(){
+
+    playerCountLabel.textContent = playerCount;
+
+    document
+        .querySelectorAll(".count-btn")
+        .forEach(btn => {
+
+            btn.classList.toggle(
+                "active",
+                Number(btn.dataset.count) === playerCount
+            );
+
+        });
+
+    playerConfigList.innerHTML = "";
+
+    for(let i = 0; i < playerCount; i++){
+
+        const row = document.createElement("div");
+
+        row.className = "player-config";
+
+        row.innerHTML = `
+            <div class="color-dot"
+                 style="background:${COLORS[i]}"></div>
+
+            <input
+                class="player-name-input"
+                data-player="${i}"
+                maxlength="18"
+                value="${defaultNames[i]}"
+                aria-label="Player ${i+1} name">
+
+            <select
+                class="type-select"
+                data-player="${i}">
+
+                <option value="human"
+                    ${setupTypes[i] === "human" ? "selected" : ""}>
+                    HUMAN
+                </option>
+
+                <option value="computer"
+                    ${setupTypes[i] === "computer" ? "selected" : ""}>
+                    COMPUTER
+                </option>
+
+            </select>
+        `;
+
+        playerConfigList.appendChild(row);
+
+    }
+
+}
+
+/* =========================================================
+   SVG HELPERS
+   ========================================================= */
+
+function svgElement(name, attrs = {}){
+
+    const el = document.createElementNS(
+        "http://www.w3.org/2000/svg",
+        name
+    );
+
+    for(const [key,value] of Object.entries(attrs)){
+        el.setAttribute(key,value);
+    }
+
+    return el;
+}
+
+function clearElement(el){
+
+    while(el.firstChild){
+        el.removeChild(el.firstChild);
+    }
+
+}
+
+/* =========================================================
+   BOARD GEOMETRY
+   ========================================================= */
+
+/*
+    We use a 15 x 15 Ludo-style grid.
+
+    Track cells are generated around the central area.
+*/
+
+const trackCoords = [];
+
+function generateTrack(){
+
+    trackCoords.length = 0;
+
+    /*
+        Top horizontal
+    */
+
+    for(let x = 1; x <= 5; x++){
+        trackCoords.push([x,6]);
+    }
+
+    /*
+        Left / center upper
+    */
+
+    trackCoords.push([6,5]);
+    trackCoords.push([6,4]);
+    trackCoords.push([6,3]);
+    trackCoords.push([6,2]);
+    trackCoords.push([6,1]);
+
+    /*
+        Top-right
+    */
+
+    for(let y = 1; y <= 5; y++){
+        trackCoords.push([8,y]);
+    }
+
+    /*
+        Right side
+    */
+
+    trackCoords.push([9,6]);
+    trackCoords.push([10,6]);
+    trackCoords.push([11,6]);
+    trackCoords.push([12,6]);
+    trackCoords.push([13,6]);
+
+    /*
+        Bottom-right
+    */
+
+    for(let y = 8; y <= 13; y++){
+        trackCoords.push([8,y]);
+    }
+
+    /*
+        Bottom
+    */
+
+    for(let x = 13; x >= 9; x--){
+        trackCoords.push([x,8]);
+    }
+
+    /*
+        Bottom-left
+    */
+
+    for(let y = 13; y >= 9; y--){
+        trackCoords.push([6,y]);
+    }
+
+    /*
+        Left
+    */
+
+    for(let x = 1; x <= 5; x++){
+        trackCoords.push([x,8]);
+    }
+
+    /*
+        Make exactly 52 cells.
+    */
+
+    while(trackCoords.length > 52){
+        trackCoords.pop();
+    }
+
+    while(trackCoords.length < 52){
+        trackCoords.push([1,1]);
+    }
+
+}
+
+generateTrack();
+
+/* =========================================================
+   BOARD DRAWING
+   ========================================================= */
+
+function cellCenter(x,y){
+
+    return {
+        x: x * 10 + 5,
+        y: y * 10 + 5
+    };
+
+}
+
+function drawBoard(){
+
+    clearElement(boardGraphics);
+
+    /*
+        Four main homes.
+    */
+
+    drawHome(0,0,70,70,"home-red",COLORS[0]);
+    drawHome(80,0,70,70,"home-yellow",COLORS[1]);
+    drawHome(0,80,70,70,"home-green",COLORS[2]);
+    drawHome(80,80,70,70,"home-blue",COLORS[3]);
+
+    /*
+        Extra player home areas.
+        These appear as decorative zones around the board.
+    */
+
+    const extras = [
+        [20,0,COLORS[4]],
+        [50,0,COLORS[5]],
+        [0,20,COLORS[6]],
+        [0,50,COLORS[7]],
+        [120,20,COLORS[8]],
+        [120,50,COLORS[9]]
+    ];
+
+    extras.forEach(([x,y,color]) => {
+
+        const r = svgElement("rect",{
+            x,
+            y,
+            width:30,
+            height:30,
+            rx:5,
+            fill:color,
+            opacity:.08,
+            stroke:color,
+            "stroke-opacity":.2
+        });
+
+        boardGraphics.appendChild(r);
+
+    });
+
+    /*
+        Track.
+    */
+
+    trackCoords.forEach(([gx,gy],i)=>{
+
+        const p = cellCenter(gx,gy);
+
+        const rect = svgElement("rect",{
+            class:"track-cell",
+            x:p.x-4.6,
+            y:p.y-4.6,
+            width:9.2,
+            height:9.2,
+            rx:1.3
+        });
+
+        boardGraphics.appendChild(rect);
+
+        if(SAFE_CELLS.has(i)){
+
+            const star = svgElement("text",{
+                x:p.x,
+                y:p.y+1.8,
+                class:"safe-star",
+                "font-size":"6",
+                "text-anchor":"middle"
+            });
+
+            star.textContent = "★";
+
+            boardGraphics.appendChild(star);
+
+        }
+
+    });
+
+    /*
+        Start markers.
+    */
+
+    STARTS.forEach((index,i)=>{
+
+        if(index >= trackCoords.length) return;
+
+        const [gx,gy] = trackCoords[index];
+
+        const p = cellCenter(gx,gy);
+
+        const circle = svgElement("circle",{
+            cx:p.x,
+            cy:p.y,
+            r:3.7,
+            fill:COLORS[i],
+            opacity:.23,
+            class:"start-mark"
+        });
+
+        boardGraphics.appendChild(circle);
+
+    });
+
+    /*
+        Home lanes.
+    */
+
+    for(let i=0;i<4;i++){
+
+        const laneColor = COLORS[i];
+
+        const cells = getHomeLaneCells(i);
+
+        cells.forEach((coord,index)=>{
+
+            const [x,y] = coord;
+
+            const p = cellCenter(x,y);
+
+            const rect = svgElement("rect",{
+                class:"track-cell home-lane",
+                x:p.x-4.6,
+                y:p.y-4.6,
+                width:9.2,
+                height:9.2,
+                rx:1.3,
+                fill:laneColor,
+                "fill-opacity":.3,
+                stroke:laneColor,
+                "stroke-opacity":.55
+            });
+
+            boardGraphics.appendChild(rect);
+
+        });
+
+    }
+
+    /*
+        Center home.
+    */
+
+    const center = svgElement("circle",{
+        class:"center-home",
+        cx:75,
+        cy:75,
+        r:16
+    });
+
+    boardGraphics.appendChild(center);
+
+    const triangles = [
+        {
+            points:"75,75 59,59 75,59",
+            fill:COLORS[0]
+        },
+        {
+            points:"75,75 75,59 91,75",
+            fill:COLORS[1]
+        },
+        {
+            points:"75,75 91,75 75,91",
+            fill:COLORS[2]
+        },
+        {
+            points:"75,75 75,91 59,75",
+            fill:COLORS[3]
+        }
+    ];
+
+    triangles.forEach(t=>{
+
+        const poly = svgElement("polygon",{
+            points:t.points,
+            fill:t.fill,
+            class:"center-triangle"
+        });
+
+        boardGraphics.appendChild(poly);
+
+    });
+
+}
+
+function drawHome(x,y,w,h,cls,color){
+
+    const outer = svgElement("rect",{
+        x:x+2,
+        y:y+2,
+        width:w-4,
+        height:h-4,
+        rx:6,
+        class:`home-area ${cls}`,
+        stroke:color
+    });
+
+    boardGraphics.appendChild(outer);
+
+    /*
+        Four token circles.
+    */
+
+    const positions = [
+        [x+20,y+20],
+        [x+50,y+20],
+        [x+20,y+50],
+        [x+50,y+50]
+    ];
+
+    positions.forEach(([cx,cy])=>{
+
+        const c = svgElement("circle",{
+            cx,
+            cy,
+            r:8,
+            fill:"#0c1119",
+            stroke:color,
+            "stroke-width":1.4
+        });
+
+        boardGraphics.appendChild(c);
+
+    });
+
+}
+
+function getHomeLaneCells(player){
+
+    const lanes = [
+
+        [
+            [7,6],
+            [7,5],
+            [7,4],
+            [7,3],
+            [7,2],
+            [7,1]
+        ],
+
+        [
+            [8,7],
+            [9,7],
+            [10,7],
+            [11,7],
+            [12,7],
+            [13,7]
+        ],
+
+        [
+            [7,8],
+            [7,9],
+            [7,10],
+            [7,11],
+            [7,12],
+            [7,13]
+        ],
+
+        [
+            [6,7],
+            [5,7],
+            [4,7],
+            [3,7],
+            [2,7],
+            [1,7]
+        ]
+
+    ];
+
+    return lanes[player % 4];
+
+}
+
+/* =========================================================
+   TOKEN GEOMETRY
+   ========================================================= */
+
+function getTokenPosition(playerIndex, tokenIndex){
+
+    const player = players[playerIndex];
+
+    if(!player){
+        return {x:75,y:75};
+    }
+
+    const token = player.tokens[tokenIndex];
+
+    /*
+        Yard.
+    */
+
+    if(token.position === -1){
+
+        const base = getYardPosition(playerIndex,tokenIndex);
+
+        return base;
+
+    }
+
+    /*
+        Completed.
+    */
+
+    if(token.position === FINISH_POSITION){
+
+        const offsets = [
+            [-5,-5],
+            [5,-5],
+            [-5,5],
+            [5,5]
+        ];
+
+        return {
+            x:75 + offsets[tokenIndex][0],
+            y:75 + offsets[tokenIndex][1]
+        };
+
+    }
+
+    /*
+        Home lane.
+    */
+
+    if(token.position >= TRACK_COUNT){
+
+        const laneIndex = token.position - TRACK_COUNT;
+
+        const lane = getHomeLaneCells(playerIndex);
+
+        const coord = lane[Math.min(laneIndex,lane.length-1)];
+
+        return cellCenter(coord[0],coord[1]);
+
+    }
+
+    /*
+        Track.
+    */
+
+    const absolute =
+        (STARTS[playerIndex] + token.position) % TRACK_COUNT;
+
+    const coord = trackCoords[absolute];
+
+    if(!coord){
+        return {x:75,y:75};
+    }
+
+    const p = cellCenter(coord[0],coord[1]);
+
+    /*
+        Stack offset.
+    */
+
+    const stack = getStackOffset(
+        playerIndex,
+        tokenIndex
+    );
+
+    return {
+        x:p.x + stack.x,
+        y:p.y + stack.y
+    };
+
+}
+
+function getYardPosition(player,token){
+
+    /*
+        First four players have real board corners.
+        Additional players get compact outer positions.
+    */
+
+    const normal = [
+
+        [
+            [20,20],
+            [50,20],
+            [20,50],
+            [50,50]
+        ],
+
+        [
+            [100,20],
+            [130,20],
+            [100,50],
+            [130,50]
+        ],
+
+        [
+            [20,100],
+            [50,100],
+            [20,130],
+            [50,130]
+        ],
+
+        [
+            [100,100],
+            [130,100],
+            [100,130],
+            [130,130]
+        ]
+
+    ];
+
+    if(player < 4){
+
+        return {
+            x:normal[player][token][0],
+            y:normal[player][token][1]
+        };
+
+    }
+
+    const extras = [
+        [20,15],
+        [50,15],
+        [15,20],
+        [15,50],
+        [135,20],
+        [135,50]
+    ];
+
+    const p = extras[(player-4)%extras.length];
+
+    return {
+        x:p[0] + ((token%2)*5),
+        y:p[1] + ((Math.floor(token/2))*5)
+    };
+
+}
+
+function getStackOffset(player,token){
+
+    /*
+        Slightly separate tokens occupying same track square.
+    */
+
+    const offsets = [
+        [-2,-2],
+        [2,-2],
+        [-2,2],
+        [2,2]
+    ];
+
+    return {
+        x:offsets[token][0],
+        y:offsets[token][1]
+    };
+
+}
+
+/* =========================================================
+   TOKEN RENDER
+   ========================================================= */
+
+function renderTokens(){
+
+    clearElement(tokenLayer);
+
+    players.forEach((player,pi)=>{
+
+        player.tokens.forEach((token,ti)=>{
+
+            const p = getTokenPosition(pi,ti);
+
+            const group = svgElement("g",{
+                class:"token-group"
+            });
+
+            const circle = svgElement("circle",{
+                cx:p.x,
+                cy:p.y,
+                r:4.6,
+                fill:COLORS[pi],
+                class:
+                    `token ${
+                        pi === currentPlayer &&
+                        movableTokens.includes(ti)
+                            ? "selected"
+                            : ""
+                    }`,
+                "data-player":pi,
+                "data-token":ti
+            });
+
+            group.appendChild(circle);
+
+            const ring = svgElement("circle",{
+                cx:p.x,
+                cy:p.y,
+                r:3.4,
+                class:"token-ring"
+            });
+
+            group.appendChild(ring);
+
+            const number = svgElement("text",{
+                x:p.x,
+                y:p.y+.3,
+                class:"token-number"
+            });
+
+            number.textContent = String(ti+1);
+
+            group.appendChild(number);
+
+            if(
+                pi === currentPlayer &&
+                movableTokens.includes(ti)
+            ){
+
+                const pulse = svgElement("circle",{
+                    cx:p.x,
+                    cy:p.y,
+                    r:6.4,
+                    fill:"none",
+                    stroke:"#fff",
+                    "stroke-width":1,
+                    opacity:.8
+                });
+
+                group.insertBefore(pulse,circle);
+
+            }
+
+            tokenLayer.appendChild(group);
+
+        });
+
+    });
+
+}
+
+/* =========================================================
+   PLAYER STATE
+   ========================================================= */
+
+function createPlayers(){
+
+    players = [];
+
+    for(let i=0;i<playerCount;i++){
+
+        const nameInput =
+            document.querySelector(
+                `.player-name-input[data-player="${i}"]`
+            );
+
+        const typeSelect =
+            document.querySelector(
+                `.type-select[data-player="${i}"]`
+            );
+
+        const name =
+            nameInput?.value.trim() ||
+            defaultNames[i];
+
+        const type =
+            typeSelect?.value ||
+            setupTypes[i] ||
+            "human";
+
+        players.push({
+
+            id:i,
+
+            name,
+
+            type,
+
+            color:COLORS[i],
+
+            colorName:COLOR_NAMES[i],
+
+            tokens:[
+                {position:-1},
+                {position:-1},
+                {position:-1},
+                {position:-1}
+            ],
+
+            completed:0
+
+        });
+
+    }
+
+}
+
+/* =========================================================
+   MOVEMENT
+   ========================================================= */
+
+function canMoveToken(playerIndex, tokenIndex, roll){
+
+    const token = players[playerIndex].tokens[tokenIndex];
+
+    if(token.position === FINISH_POSITION){
+        return false;
+    }
+
+    /*
+        Yard token requires 6.
+    */
+
+    if(token.position === -1){
+
+        return roll === 6;
+
+    }
+
+    /*
+        Regular movement.
+    */
+
+    return token.position + roll <= FINISH_POSITION;
+
+}
+
+function getMovableTokens(playerIndex,roll){
+
+    const result = [];
+
+    for(let i=0;i<4;i++){
+
+        if(canMoveToken(playerIndex,i,roll)){
+            result.push(i);
+        }
+
+    }
+
+    return result;
+
+}
+
+function moveToken(playerIndex,tokenIndex,roll){
+
+    const token =
+        players[playerIndex].tokens[tokenIndex];
+
+    if(token.position === -1){
+
+        token.position = 0;
+
+    }else{
+
+        token.position += roll;
+
+    }
+
+    if(token.position === FINISH_POSITION){
+
+        players[playerIndex].completed++;
+
+        showToast(
+            `${players[playerIndex].name} completed token ${tokenIndex+1}!`
+        );
+
+    }
+
+    captureOpponents(playerIndex,tokenIndex);
+
+}
+
+/* =========================================================
+   CAPTURE
+   ========================================================= */
+
+function getAbsoluteTrackPosition(playerIndex,tokenIndex){
+
+    const token =
+        players[playerIndex].tokens[tokenIndex];
+
+    if(
+        token.position < 0 ||
+        token.position >= TRACK_COUNT
+    ){
+        return -1;
+    }
+
+    return (
+        STARTS[playerIndex] +
+        token.position
+    ) % TRACK_COUNT;
+
+}
+
+function captureOpponents(playerIndex,tokenIndex){
+
+    const absolute =
+        getAbsoluteTrackPosition(playerIndex,tokenIndex);
+
+    if(absolute < 0){
+        return;
+    }
+
+    if(SAFE_CELLS.has(absolute)){
+        return;
+    }
+
+    players.forEach((player,pi)=>{
+
+        if(pi === playerIndex){
+            return;
+        }
+
+        player.tokens.forEach(token=>{
+
+            if(
+                token.position >= 0 &&
+                token.position < TRACK_COUNT
+            ){
+
+                const otherAbsolute =
+                    getAbsoluteTrackPosition(
+                        pi,
+                        player.tokens.indexOf(token)
+                    );
+
+                if(otherAbsolute === absolute){
+
+                    token.position = -1;
+
+                    showToast(
+                        `${players[playerIndex].name} captured ${player.name}!`
+                    );
+
+                }
+
+            }
+
+        });
+
+    });
+
+}
+
+/* =========================================================
+   TURN
+   ========================================================= */
+
+function updateTurnUI(){
+
+    const player = players[currentPlayer];
+
+    if(!player){
+        return;
+    }
+
+    turnName.textContent = player.name;
+
+    turnColor.style.background = player.color;
+
+    turnColor.style.boxShadow =
+        `0 0 20px ${player.color}55`;
+
+    playersList.innerHTML = "";
+
+    players.forEach((p,i)=>{
+
+        const row = document.createElement("div");
+
+        row.className =
+            "player-row" +
+            (i === currentPlayer ? " active" : "");
+
+        row.innerHTML = `
+            <div class="mini-color"
+                 style="background:${p.color}"></div>
+
+            <div>
+                <div class="player-row-name">${escapeHtml(p.name)}</div>
+                <div class="player-row-type">
+                    ${p.type === "computer" ? "COMPUTER" : "HUMAN"}
+                </div>
+            </div>
+
+            <div class="player-score">
+                ${p.completed}/4
+            </div>
+        `;
+
+        playersList.appendChild(row);
+
+    });
+
+}
+
+function nextPlayer(){
+
+    let attempts = 0;
+
+    do{
+
+        currentPlayer =
+            (currentPlayer + 1) % players.length;
+
+        attempts++;
+
+    }while(
+        players[currentPlayer].completed === 4 &&
+        attempts <= players.length
+    );
+
+    diceValue = 0;
+
+    diceRolled = false;
+
+    movableTokens = [];
+
+    selectedToken = -1;
+
+    diceEl.textContent = "—";
+
+    updateTurnUI();
+
+    gameStatus.textContent =
+        `${players[currentPlayer].name}'s turn. Roll the dice.`;
+
+    rollBtn.disabled =
+        players[currentPlayer].type === "computer";
+
+    if(players[currentPlayer].type === "computer"){
+
+        scheduleComputerTurn();
+
+    }
+
+}
+
+/* =========================================================
+   DICE
+   ========================================================= */
+
+function rollDice(){
+
+    if(!gameRunning || gamePaused || gameOver){
+        return;
+    }
+
+    if(diceRolled){
+        return;
+    }
+
+    const player = players[currentPlayer];
+
+    if(player.type === "computer"){
+        return;
+    }
+
+    performRoll();
+
+}
+
+function performRoll(){
+
+    diceRolled = true;
+
+    rollBtn.disabled = true;
+
+    diceEl.classList.add("rolling");
+
+    const duration =
+        animationsEnabled ? 550 : 0;
+
+    setTimeout(()=>{
+
+        diceEl.classList.remove("rolling");
+
+        diceValue =
+            Math.floor(Math.random()*6)+1;
+
+        diceEl.textContent =
+            diceValue;
+
+        movableTokens =
+            getMovableTokens(
+                currentPlayer,
+                diceValue
+            );
+
+        if(movableTokens.length === 0){
+
+            gameStatus.textContent =
+                `${players[currentPlayer].name} rolled ${diceValue}. No legal moves.`;
+
+            setTimeout(()=>{
+
+                if(diceValue === 6){
+
+                    diceRolled = false;
+
+                    rollBtn.disabled =
+                        players[currentPlayer].type === "computer";
+
+                    gameStatus.textContent =
+                        `${players[currentPlayer].name} gets another roll.`;
+
+                    if(players[currentPlayer].type === "computer"){
+                        scheduleComputerTurn();
+                    }
+
+                }else{
+
+                    nextPlayer();
+
+                }
+
+            },animationsEnabled ? 850 : 100);
+
+            return;
+
+        }
+
+        if(movableTokens.length === 1){
+
+            gameStatus.textContent =
+                `${players[currentPlayer].name} can move token ${movableTokens[0]+1}.`;
+
+            if(playerIsComputer()){
+
+                scheduleComputerMove();
+
+            }
+
+        }else{
+
+            gameStatus.textContent =
+                `${players[currentPlayer].name}: choose a highlighted token.`;
+
+            if(playerIsComputer()){
+
+                scheduleComputerMove();
+
+            }
+
+        }
+
+        renderTokens();
+
+    },duration);
+
+}
+
+/* =========================================================
+   HUMAN MOVE
+   ========================================================= */
+
+function handleTokenClick(pi,ti){
+
+    if(!gameRunning || gamePaused || gameOver){
+        return;
+    }
+
+    if(pi !== currentPlayer){
+        return;
+    }
+
+    if(players[currentPlayer].type !== "human"){
+        return;
+    }
+
+    if(!diceRolled){
+        return;
+    }
+
+    if(!movableTokens.includes(ti)){
+        showToast("That token cannot move.");
+        return;
+    }
+
+    executeMove(ti);
+
+}
+
+function executeMove(tokenIndex){
+
+    if(!movableTokens.includes(tokenIndex)){
+        return;
+    }
+
+    const player = players[currentPlayer];
+
+    const roll = diceValue;
+
+    moveToken(
+        currentPlayer,
+        tokenIndex,
+        roll
+    );
+
+    renderTokens();
+
+    updateTurnUI();
+
+    diceRolled = false;
+
+    movableTokens = [];
+
+    /*
+        Winner.
+    */
+
+    if(player.completed === 4){
+
+        finishGame(player);
+
+        return;
+
+    }
+
+    /*
+        Six gives another turn.
+    */
+
+    if(roll === 6){
+
+        gameStatus.textContent =
+            `${player.name} rolled a 6 and gets another turn.`;
+
+        diceValue = 0;
+
+        diceEl.textContent = "—";
+
+        rollBtn.disabled = false;
+
+        return;
+
+    }
+
+    setTimeout(nextPlayer,animationsEnabled ? 350 : 0);
+
+}
+
+/* =========================================================
+   COMPUTER AI
+   ========================================================= */
+
+function playerIsComputer(){
+
+    return players[currentPlayer]?.type === "computer";
+
+}
+
+function scheduleComputerTurn(){
+
+    clearTimeout(aiTimer);
+
+    const delay =
+        Number(aiSpeed.value) || 700;
+
+    aiTimer = setTimeout(()=>{
+
+        if(
+            !gameRunning ||
+            gamePaused ||
+            gameOver ||
+            !playerIsComputer()
+        ){
+            return;
+        }
+
+        performRoll();
+
+    },delay);
+
+}
+
+function scheduleComputerMove(){
+
+    clearTimeout(aiTimer);
+
+    const delay =
+        Number(aiSpeed.value) || 700;
+
+    aiTimer = setTimeout(()=>{
+
+        if(
+            !gameRunning ||
+            gamePaused ||
+            gameOver ||
+            !playerIsComputer()
+        ){
+            return;
+        }
+
+        const chosen =
+            chooseComputerToken();
+
+        if(chosen >= 0){
+
+            executeComputerMove(chosen);
+
+        }
+
+    },delay);
+
+}
+
+function chooseComputerToken(){
+
+    if(!movableTokens.length){
+        return -1;
+    }
+
+    let best = movableTokens[0];
+
+    let bestScore = -Infinity;
+
+    movableTokens.forEach(ti=>{
+
+        const token =
+            players[currentPlayer].tokens[ti];
+
+        let score = 0;
+
+        /*
+            Finish is valuable.
+        */
+
+        if(
+            token.position + diceValue === FINISH_POSITION
+        ){
+            score += 10000;
+        }
+
+        /*
+            Entering from yard.
+        */
+
+        if(token.position === -1 && diceValue === 6){
+            score += 500;
+        }
+
+        /*
+            Progress.
+        */
+
+        if(token.position >= 0){
+            score += token.position * 8;
+        }
+
+        /*
+            Captures.
+        */
+
+        const future =
+            token.position === -1
+                ? 0
+                : token.position + diceValue;
+
+        if(future < TRACK_COUNT){
+
+            const absolute =
+                (
+                    STARTS[currentPlayer] +
+                    future
+                ) % TRACK_COUNT;
+
+            players.forEach((p,pi)=>{
+
+                if(pi === currentPlayer){
+                    return;
+                }
+
+                p.tokens.forEach((other,oi)=>{
+
+                    const op =
+                        getAbsoluteTrackPosition(
+                            pi,
+                            oi
+                        );
+
+                    if(op === absolute){
+                        score += 1000;
+                    }
+
+                });
+
+            });
+
+        }
+
+        /*
+            Randomness prevents identical play every game.
+        */
+
+        score += Math.random()*40;
+
+        if(score > bestScore){
+
+            bestScore = score;
+
+            best = ti;
+
+        }
+
+    });
+
+    return best;
+
+}
+
+function executeComputerMove(tokenIndex){
+
+    executeMove(tokenIndex);
+
+}
+
+/* =========================================================
+   WINNER
+   ========================================================= */
+
+function finishGame(player){
+
+    gameOver = true;
+
+    gameRunning = false;
+
+    rollBtn.disabled = true;
+
+    winnerTitle.textContent =
+        `${player.name} WINS!`;
+
+    winnerText.textContent =
+        `${player.name} completed all four tokens.`;
+
+    showOverlay(gameOverModal);
+
+    launchConfetti();
+
+}
+
+/* =========================================================
+   GAME START
+   ========================================================= */
+
+function startGame(){
+
+    createPlayers();
+
+    currentPlayer = 0;
+
+    diceValue = 0;
+
+    diceRolled = false;
+
+    movableTokens = [];
+
+    selectedToken = -1;
+
+    gameRunning = true;
+
+    gamePaused = false;
+
+    gameOver = false;
+
+    showScreen(gameScreen);
+
+    document.body.classList.add("game-active");
+
+    drawBoard();
+
+    renderTokens();
+
+    updateTurnUI();
+
+    diceEl.textContent = "—";
+
+    gameStatus.textContent =
+        `${players[0].name}'s turn. Roll the dice.`;
+
+    rollBtn.disabled =
+        players[0].type === "computer";
+
+    if(players[0].type === "computer"){
+        scheduleComputerTurn();
+    }
+
+}
+
+/* =========================================================
+   RESTART / EXIT
+   ========================================================= */
+
+function restartGame(){
+
+    clearTimeout(aiTimer);
+
+    hideOverlay();
+
+    if(!gameRunning && !gameOver){
+        return;
+    }
+
+    startGame();
+
+}
+
+function exitToMenu(){
+
+    clearTimeout(aiTimer);
+
+    gameRunning = false;
+
+    gamePaused = false;
+
+    gameOver = false;
+
+    hideOverlay();
+
+    document.body.classList.remove("game-active");
+
+    showScreen(menuScreen);
+
+}
+
+/* =========================================================
+   PAUSE
+   ========================================================= */
+
+function pauseGame(){
+
+    if(!gameRunning || gameOver){
+        return;
+    }
+
+    gamePaused = true;
+
+    clearTimeout(aiTimer);
+
+    showOverlay(pauseModal);
+
+    gameStatus.textContent = "Game paused.";
+
+}
+
+function resumeGame(){
+
+    if(!gameRunning || gameOver){
+        return;
+    }
+
+    gamePaused = false;
+
+    hideOverlay();
+
+    if(players[currentPlayer].type === "computer"){
+
+        if(!diceRolled){
+            scheduleComputerTurn();
+        }else{
+            scheduleComputerMove();
+        }
+
+    }else{
+
+        rollBtn.disabled = diceRolled;
+
+    }
+
+    gameStatus.textContent =
+        `${players[currentPlayer].name}'s turn.`;
+
+}
+
+/* =========================================================
+   OVERLAYS
+   ========================================================= */
+
+function showOverlay(modal){
+
+    overlay.classList.add("show");
+
+    [
+        pauseModal,
+        howModal,
+        settingsModal,
+        gameOverModal
+    ].forEach(m=>m.classList.add("hidden"));
+
+    modal.classList.remove("hidden");
+
+}
+
+function hideOverlay(){
+
+    overlay.classList.remove("show");
+
+    [
+        pauseModal,
+        howModal,
+        settingsModal,
+        gameOverModal
+    ].forEach(m=>m.classList.add("hidden"));
+
+}
+
+function openHow(){
+
+    showOverlay(howModal);
+
+}
+
+function openSettings(){
+
+    showOverlay(settingsModal);
+
+}
+
+/* =========================================================
+   TOAST
+   ========================================================= */
+
+function showToast(message){
+
+    toast.textContent = message;
+
+    toast.classList.add("show");
+
+    clearTimeout(toastTimer);
+
+    toastTimer = setTimeout(()=>{
+
+        toast.classList.remove("show");
+
+    },2200);
+
+}
+
+/* =========================================================
+   CONFETTI
+   ========================================================= */
+
+function launchConfetti(){
+
+    const colors = COLORS;
+
+    for(let i=0;i<100;i++){
+
+        const piece =
+            document.createElement("div");
+
+        piece.className = "confetti";
+
+        piece.style.left =
+            Math.random()*100 + "vw";
+
+        piece.style.background =
+            colors[
+                Math.floor(Math.random()*colors.length)
+            ];
+
+        piece.style.setProperty(
+            "--x",
+            ((Math.random()-.5)*35) + "vw"
+        );
+
+        piece.style.animationDuration =
+            (2 + Math.random()*2.5) + "s";
+
+        piece.style.animationDelay =
+            Math.random()*.8 + "s";
+
+        document.body.appendChild(piece);
+
+        setTimeout(
+            ()=>piece.remove(),
+            5000
+        );
+
+    }
+
+}
+
+/* =========================================================
+   SOUND
+   ========================================================= */
+
+let audioContext = null;
+
+function beep(){
+
+    if(!soundEnabled){
+        return;
+    }
+
+    try{
+
+        if(!audioContext){
+
+            audioContext =
+                new (
+                    window.AudioContext ||
+                    window.webkitAudioContext
+                )();
+
+        }
+
+        const oscillator =
+            audioContext.createOscillator();
+
+        const gain =
+            audioContext.createGain();
+
+        oscillator.type = "sine";
+
+        oscillator.frequency.value = 520;
+
+        gain.gain.value = .04;
+
+        oscillator.connect(gain);
+
+        gain.connect(audioContext.destination);
+
+        oscillator.start();
+
+        oscillator.stop(
+            audioContext.currentTime + .08
+        );
+
+    }catch(e){}
+
+}
+
+/* =========================================================
+   ESCAPE HTML
+   ========================================================= */
+
+function escapeHtml(text){
+
+    return String(text)
+        .replace(/&/g,"&amp;")
+        .replace(/</g,"&lt;")
+        .replace(/>/g,"&gt;")
+        .replace(/"/g,"&quot;")
+        .replace(/'/g,"&#039;");
+
+}
+
+/* =========================================================
+   INPUT
+   ========================================================= */
+
+tokenLayer.addEventListener(
+    "pointerup",
+    event => {
+
+        const token =
+            event.target.closest(".token");
+
+        if(!token){
+            return;
+        }
+
+        const pi =
+            Number(token.dataset.player);
+
+        const ti =
+            Number(token.dataset.token);
+
+        beep();
+
+        handleTokenClick(pi,ti);
+
+    }
+);
+
+rollBtn.addEventListener(
+    "pointerup",
+    event => {
+
+        event.preventDefault();
+
+        beep();
+
+        rollDice();
+
+    }
+);
+
+document.addEventListener(
+    "keydown",
+    event => {
+
+        if(event.key === "Escape"){
+
+            if(
+                gameRunning &&
+                !gamePaused &&
+                !gameOver
+            ){
+
+                pauseGame();
+
+            }else if(gamePaused){
+
+                resumeGame();
+
+            }
+
+            return;
+        }
+
+        if(event.key.toLowerCase() === "p"){
+
+            if(gamePaused){
+                resumeGame();
+            }else{
+                pauseGame();
+            }
+
+            return;
+        }
+
+        if(
+            event.code === "Space" &&
+            gameRunning &&
+            !gamePaused
+        ){
+
+            event.preventDefault();
+
+            rollDice();
+
+        }
+
+        if(
+            event.key.toLowerCase() === "r" &&
+            gameRunning
+        ){
+
+            restartGame();
+
+        }
+
+    }
+);
+
+/* =========================================================
+   BUTTON EVENTS
+   ========================================================= */
+
+playBtn.addEventListener("click",()=>{
+
+    buildSetup();
+
+    showScreen(setupScreen);
+
+});
+
+howBtn.addEventListener("click",openHow);
+
+settingsBtn.addEventListener("click",openSettings);
+
+headerSettings.addEventListener("click",openSettings);
+
+setupBack.addEventListener("click",()=>{
+
+    showScreen(menuScreen);
+
+});
+
+startGameBtn.addEventListener("click",()=>{
+
+    startGame();
+
+});
+
+playerCountButtons.addEventListener(
+    "click",
+    event => {
+
+        const btn =
+            event.target.closest(".count-btn");
+
+        if(!btn){
+            return;
+        }
+
+        playerCount =
+            Number(btn.dataset.count);
+
+        buildSetup();
+
+    }
+);
+
+playerConfigList.addEventListener(
+    "change",
+    event => {
+
+        const select =
+            event.target.closest(".type-select");
+
+        if(!select){
+            return;
+        }
+
+        const i =
+            Number(select.dataset.player);
+
+        setupTypes[i] =
+            select.value;
+
+    }
+);
+
+pauseBtn.addEventListener("click",pauseGame);
+
+headerPause.addEventListener("click",()=>{
+
+    if(gamePaused){
+        resumeGame();
+    }else{
+        pauseGame();
+    }
+
+});
+
+restartBtn.addEventListener("click",()=>{
+
+    if(confirm("Restart the current game?")){
+
+        restartGame();
+
+    }
+
+});
+
+exitBtn.addEventListener("click",()=>{
+
+    if(confirm("Exit to the main menu?")){
+
+        exitToMenu();
+
+    }
+
+});
+
+resumeBtn.addEventListener("click",resumeGame);
+
+pauseRestartBtn.addEventListener("click",()=>{
+
+    restartGame();
+
+});
+
+pauseExitBtn.addEventListener("click",()=>{
+
+    exitToMenu();
+
+});
+
+closeHowBtn.addEventListener("click",hideOverlay);
+
+closeSettingsBtn.addEventListener("click",hideOverlay);
+
+newGameBtn.addEventListener("click",()=>{
+
+    hideOverlay();
+
+    buildSetup();
+
+    showScreen(setupScreen);
+
+});
+
+winnerExitBtn.addEventListener("click",exitToMenu);
+
+animationToggle.addEventListener(
+    "change",
+    ()=>{
+
+        animationsEnabled =
+            animationToggle.checked;
+
+    }
+);
+
+soundToggle.addEventListener(
+    "change",
+    ()=>{
+
+        soundEnabled =
+            soundToggle.checked;
+
+        beep();
+
+    }
+);
+
+/* =========================================================
+   INITIALIZATION
+   ========================================================= */
+
+buildSetup();
+
+drawBoard();
+
+showScreen(menuScreen);
+
+})();
+</script>
+
+</body>
+</html>
