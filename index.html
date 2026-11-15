@@ -115,9 +115,21 @@ button{
     display:flex;
     align-items:center;
     gap:10px;
+    padding:0;
+    border:0;
+    background:transparent;
+    color:inherit;
+    text-align:left;
+    cursor:pointer;
     font-weight:900;
     letter-spacing:2px;
     font-size:20px;
+}
+
+.logo:focus-visible{
+    outline:2px solid var(--text);
+    outline-offset:5px;
+    border-radius:5px;
 }
 
 .logo-mark{
@@ -1312,10 +1324,10 @@ button:focus-visible,input:focus-visible,select:focus-visible{
          ===================================================== -->
 
     <header class="header">
-        <div class="logo">
+        <button class="logo" id="logoHome" type="button" aria-label="Go to landing page">
             <img class="logo-mark" src="./logo.svg" alt="" width="30" height="30">
             <span>VOID LUDO</span>
-        </div>
+        </button>
 
         <div class="header-right">
             <button class="header-btn" id="headerPause" title="Pause">Ⅱ</button>
@@ -1816,6 +1828,7 @@ const exitBtn = $("exitBtn");
 
 const headerPause = $("headerPause");
 const headerSettings = $("headerSettings");
+const logoHome = $("logoHome");
 
 const overlay = $("overlay");
 
@@ -3765,6 +3778,8 @@ playBtn.addEventListener("click",()=>{
     showScreen(setupScreen);
 
 });
+
+logoHome.addEventListener("click",exitToMenu);
 
 howBtn.addEventListener("click",openHow);
 
